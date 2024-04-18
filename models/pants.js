@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const PantsSchema = new Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    colors: { type: [String], required: true },
+    colors: { type: [{color: Schema.Types.ObjectId, swatchImageUrl: String}], required: true },
     stock: { type: Number, required: true },
     description: { type: String, required: true },
     category: [{ type: Schema.Types.ObjectId, ref: "Category" }],
-    pictureUrl: { type: String, required: true },
+    mainImageUrl: { type: String, required: true },
 });
 
 PantsSchema.virtual('url').get(function () {
