@@ -8,7 +8,7 @@ const ShoesSchema = new Schema({
     colors: { type: [String], required: true },
     stock: { type: Number, required: true },
     description: { type: String, required: true },
-    category: [{ type: Schema.type.ObjectId, ref: "Category" }],
+    category: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     pictureUrl: { type: String, required: true },
 });
 
