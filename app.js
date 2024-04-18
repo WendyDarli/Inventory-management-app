@@ -13,11 +13,12 @@ var app = express();
 const mongoose = require('mongoose');
 
 mongoose.set("strictQuery", false);
-const mongoDB = 'mongodb+srv://inventorymanager:oEL3K5yLrPDMqwqD@cluster0.e1susyz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const mongoDB = 'mongodb+srv://inventorymanager:oEL3K5yLrPDMqwqD@cluster0.e1susyz.mongodb.net/inventory_management?retryWrites=true&w=majority&appName=Cluster0';
 
 main().catch((err) => console.log(err));
 async function main(){
   await mongoose.connect(mongoDB);
+  console.log('Connected to MongoDB database:', mongoose.connection.name);
 }
 
 // view engine setup
