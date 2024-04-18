@@ -9,6 +9,7 @@ const ShirtsSchema = new Schema({
     stock: { type: Number, required: true },
     description: { type: String, required: true },
     category: [{ type: Schema.type.ObjectId, ref: "Category" }],
+    pictureUrl: { type: String, required: true },
 });
 
 ShirtsSchema.virtual('url').get(function () {
