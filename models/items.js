@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const PantsSchema = new Schema({
+const ItemsSchema = new Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
     colors: { type: [{color: Schema.Types.ObjectId, swatchImageUrl: String}], required: true },
@@ -12,12 +12,12 @@ const PantsSchema = new Schema({
     mainImageUrl: { type: String, required: true },
 });
 
-PantsSchema.virtual('url').get(function () {
-    return `/categories/Pants/${this._id}`;
+ItemsSchema.virtual('url').get(function () {
+    return `/categories/items/${this._id}`;
 });
 
-PantsSchema.virtual('avaliability').get(function () {
+ItemsSchema.virtual('avaliability').get(function () {
     return this.stock === 0 ? 'Out of Stock' : this.stock;
 });
 
-module.exports = mongoose.model("Pants", PantsSchema);
+module.exports = mongoose.model("Item", ItemsSchema);
