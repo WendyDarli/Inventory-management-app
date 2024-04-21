@@ -24,7 +24,7 @@ exports.index = asyncHandler(async (req, res, next) => {
 
 // Display list of all items.
 exports.item_list = asyncHandler(async (req, res, next) => {
-
+  res.send("NOT IMPLEMENTED: item list");
 
 });
 
