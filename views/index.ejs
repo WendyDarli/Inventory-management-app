@@ -6,16 +6,19 @@
   </head>
   <body>
 
-    <%- include('header') %>
+    <%- include('header') -%>
     <main>
-      <div>
+      <div id="indexpage">
         <h3>Inventory Mangement</h3>
-        <p>Welcome to Invwentory Management! <br> 
+        <hr>
+        <p>Welcome to Inventory Management! <br> 
           You are able to create, read, update and delete items.</p>
 
-        <h3>Dynamic Content</h3>
-        <p>Categories: <%= categories %> </p>
-        <p>Items: <%= Items> </p>
+        <h3>Records Count</h3>
+        <hr>
+        <p>Items: <%= items_count %> </p>
+        <p>Categories: <%= category_count %></p>       
+        <p>Colors: <%= colors_count %> </p>
       </div>
     </main>
 

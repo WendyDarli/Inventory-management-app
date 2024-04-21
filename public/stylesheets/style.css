@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gaegu&family=M+PLUS+Rounded+1c&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sedan:ital@0;1&display=swap');
 body {
   font-family: "Roboto", sans-serif;
-  background-color: F9F9F9;
+  background-color: #F9F9F9;
   margin: 0;
   padding: 0;
 }
@@ -72,4 +72,11 @@ a {
 
 #new:hover{
   background-color: #232323;
+}
+
+/* INDEX PAGE STYLE */
+
+#indexpage{
+  padding: 50px 800px 0px 550px;
+  font-family: "Roboto", sans-serif;
 }
