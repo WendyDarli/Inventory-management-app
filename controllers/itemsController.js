@@ -1,12 +1,31 @@
+const Item = require("../models/items");
+const Colors = require("../models/colors");
+const Category = require("../models/categories");
 const asyncHandler = require("express-async-handler");
 
 exports.index = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+    const [
+      numItems,
+      numCategories,
+      numColors,
+    ] = await Promise.all([
+      Item.countDocuments({}).exec(),
+      Category.countDocuments({}).exec(),
+      Colors.countDocuments({}).exec(),
+    ]);
+
+    res.render("index", {
+      title: 'Inventory Management Home',  
+      items_count: numItems,
+      category_count: numCategories,
+      colors_count: numColors,
+    });
 });
 
 // Display list of all items.
 exports.item_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: item list");
+
+
 });
 
 // Display detail page for a specific item.
