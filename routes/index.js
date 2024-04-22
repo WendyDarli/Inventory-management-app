@@ -32,7 +32,7 @@ router.post("/item/:id/update", item_controller.item_update_post);
 router.get("/item/:id", item_controller.item_detail);
 
 // GET request for list of all items.
-router.get("/items", item_controller.item_list);
+router.get("/item", item_controller.item_list);
 
 
 /// CATEGORIES ROUTES ///
