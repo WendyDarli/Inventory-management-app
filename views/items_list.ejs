@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%- include('header') -%>
+    <main id="items-main">
+
+        <h3 id="all-items-h3">All Items</h3>
+        <hr>
+
+        <div id="page-container">
+          <div id="filters-container">
+
+            <label for="category" class="label-box">
+              <h3 class="no-marg">Category</h3>
+              <hr>
+              <label for="shirts">
+                <input type="checkbox" id="shirts" name="category" value="Shirts">
+                Shirts
+              </label>
+              
+              <label for="dresses">
+                <input type="checkbox" id="dresses" name="category" value="Dresses">
+                Dresses
+              </label>
+              
+              <label for="pants">
+                <input type="checkbox" id="pants" name="category" value="Pants">
+                Pants
+              </label>
+              
+              <label for="shoes">
+                <input type="checkbox" id="shoes" name="category" value="Shoes">
+                Shoes
+              </label>
+            </label>
+            
+            
+              <label for="color" class="label-box">
+                <h3 class="no-marg"> Color</h3>
+                <hr>
+                  <label for="black">
+                    <input type="checkbox" id="black" name="color" value="Black">
+                    Black
+                </label>
+                
+                <label for="brown">
+                    <input type="checkbox" id="brown" name="color" value="Brown">
+                    Brown
+                </label>
+                
+                <label for="blue">
+                    <input type="checkbox" id="blue" name="color" value="Blue">
+                    Blue
+                </label>
+                
+                <label for="white">
+                    <input type="checkbox" id="white" name="color" value="White">
+                    White
+                </label>
+                
+                <label for="light_blue">
+                    <input type="checkbox" id="light_blue" name="color" value="Light Blue">
+                    Light Blue
+                </label>
+                
+                <label for="cyan">
+                    <input type="checkbox" id="cyan" name="color" value="Cyan">
+                    Cyan
+                </label>
+                
+                <label for="pink">
+                    <input type="checkbox" id="pink" name="color" value="Pink">
+                    Pink
+                </label>
+                
+                <label for="purple">
+                    <input type="checkbox" id="purple" name="color" value="Purple">
+                    Purple
+                </label>
+                
+                <label for="green">
+                    <input type="checkbox" id="green" name="color" value="Green">
+                    Green
+                </label>
+                
+                <label for="yellow">
+                    <input type="checkbox" id="yellow" name="color" value="Yellow">
+                    Yellow
+                </label>
+                
+                <label for="gray">
+                    <input type="checkbox" id="gray" name="color" value="Gray">
+                    Gray
+                </label>
+                
+                <label for="red">
+                    <input type="checkbox" id="red" name="color" value="Red">
+                    Red
+                </label>
+              </label>
+
+              <button id="applyFilterBtn">Apply</button>
+
+          </div>
+
+          <div id="itemsDiv">
+            
+              <% if (item_list.length) { %>
+
+                  <div class="itemsContainer">
+                    <% item_list.forEach(function(item) { %>
+                      <div class="item">
+                        
+                          <img class="productImg" src="<%= item.mainImageUrl %>" alt="Product-image">
+                          <a class="itemName" href="<%= item.url %>"><%= item.name %></a>
+                          <p> $<%= item.price %> </p>
+    
+                        
+                      </div>
+
+                    <% }); %>
+                  </div>
+
+                <% } else { %>
+                  <p>There are no items.</p>
+                <% } %>
+          </div>
+        </div>
+
+    </main>
+
+  </body>
+</html>
