@@ -162,3 +162,26 @@ a {
 .itemName:hover{
   color: #ffbfc2;
 }
+
+.lists{
+  padding: 50px 800px 0px 550px;
+  font-family: "Roboto", sans-serif;
+  font-size: 17px;
+
+
+}
+
+.lists a{
+
+  color: #3C3C3C;
+  transition: 0.3s ease 0s;
+}
+
+.lists a:hover{
+  text-decoration: none;
+  color: #ffbfc2;
+}
+
+.lists li{
+  margin-bottom: 5px;
+}
