@@ -1,8 +1,14 @@
 const asyncHandler = require("express-async-handler");
+const Colors = require("../models/colors")
 
 // Display list of all colors.
 exports.colors_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: colorslist");
+  const allColors = await Colors.find().sort({ itemColor: 1 }).exec();
+
+  res.render("colors_list", {
+    title: "Colors List",
+    colors_list: allColors,
+  });
 });
 
 // Display detail page for a specific colors
