@@ -6,5 +6,8 @@ const ColorSchema = new Schema({
     colorCode:  { type: String, required: true }
 });
 
+ColorSchema.virtual('url').get( function () {
+    return `/color/${this._id}`
+});
 
 module.exports = mongoose.model("Colors", ColorSchema);
