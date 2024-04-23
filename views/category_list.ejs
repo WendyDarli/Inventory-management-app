@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%- include('header') -%>
+    <main>
+        <div class="lists">
+          <p>Avaliable Categories</p>
+          <hr>
+        
+          <% if (category_list.length) { %>
+            <ul>
+              
+            <%category_list.forEach(function(category) { %>
+              <li>
+                <a href="<%= category.url %>"><%= category.name %> </a>
+              </li>
+              <% }); %>
+            </ul>
+
+            <% } else { %>
+              <p>There are no categories.</p>
+            <% } %>
+
+        </div>
+    </main>
+
+  </body>
+</html>
