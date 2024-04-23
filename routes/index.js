@@ -45,9 +45,11 @@ router.get("/category/:id/delete", categories_controller.category_delete_get);
 
 router.post("/category/:id/delete", categories_controller.category_delete_post);
 
-router.get("/category/:id/delete", categories_controller.category_delete_get);
+router.get("/category/:id/update", categories_controller.category_update_get);
 
-router.post("/category/:id/delete", categories_controller.category_delete_post);
+router.post("/category/:id/update", categories_controller.category_update_post);
+
+router.get("/category/:id/", categories_controller.category_detail);
 
 router.get("/category", categories_controller.category_list);
 
@@ -64,6 +66,8 @@ router.post("/color/:id/delete", colors_controller.colors_delete_post);
 router.get("/color/:id/delete", colors_controller.colors_delete_get);
 
 router.post("/color/:id/delete", colors_controller.colors_delete_post);
+
+router.get("/color/:id", colors_controller.colors_detail);
 
 router.get("/color", colors_controller.colors_list);
 
