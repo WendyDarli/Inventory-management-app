@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%- include('header') -%>
+    <main id="itemDetailContainer">
+
+        <div>
+            <img id="itemImg" src="<%= itemDetail.mainImageUrl %>">
+        </div>
+
+        <div id="details">
+            <p id="itemName"> <%= itemDetail.name %> </p>
+            <p id="itemPrice"> $<%= itemDetail.price %> </p>  
+            <p id="itemStock"> In Stock: <%= itemDetail.avaliability %> </p>
+            
+            <div  id="avaliableColors">
+                <p>Available Colors</p> 
+                <hr class="itemhr">
+                <br>
+                <div id="colorimgDiv">
+                    <% itemDetail.colors.forEach(color => { %>
+                    
+
+                            <img id="colorsImg" src="<%= color.swatchImageUrl %>"> 
+                    
+                    <% }) %>
+                </div>
+            </div>
+            
+            <p>Description</p>
+            <hr>
+            <p><%= itemDetail.description %></p>
+            <p id="ct">Category: <a href="/category/<%= itemDetail.category[0]._id %>"><%= itemDetail.category[0].name %></a></p>
+
+            
+            <div id="deleteEditLinks">
+                <a class="edlinks" href="/item/<%= itemDetail._id %>/update">Edit Item</a>
+                <a class="edlinks" href="/item/<%= itemDetail._id %>/delete">Delete</a>
+            </div>
+        </div>
+    </main>
+
+  </body>
+</html>
+
