@@ -37,7 +37,23 @@ exports.item_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific item.
 exports.item_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: item detail: ${req.params.id}`);
+  const [ itemDetail] = await Promise.all([
+    Item.findById(req.params.id)
+    .populate("price")
+    .populate("colors")
+    .populate("stock")
+    .populate("description")
+    .populate("category")
+    .exec(),
+
+
+  ]);
+
+  res.render("item_detail", {
+    title: itemDetail.name,
+    itemDetail: itemDetail,
+   
+  })
 });
 
 // Display item create form on GET.
