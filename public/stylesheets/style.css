@@ -246,3 +246,58 @@ a {
   width: 50%;
   float: left;
 }
+
+/* CATEGORY DETAIL PAGE */
+
+#category-detail-coontainer{
+  display: flex;
+
+}
+
+#category-title{
+  text-align: center;
+  font-size: 40px;
+  padding: 40px;
+  font-weight: 500;
+}
+
+#category-title hr{
+  width: 80%;
+}
+
+#items-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+  margin: 0px 200px;
+}
+
+.itemDiv{
+  padding: 0px 30px;
+  max-width: 200px;
+  
+}
+
+.categoryItemsImg{
+  width:100%;
+
+  display: block;
+  height:300px;
+  object-fit:cover;
+  object-position:50% 50%;
+}
+
+.categoryitemName{
+
+  text-decoration: none;
+  color: #3C3C3C;
+  transition: 0.3s ease 0s;
+}
+.categoryitemName:hover{
+
+  text-decoration: none;
+  color: #FFCACD;
+  transition: 0.3s ease 0s;
+}
+
