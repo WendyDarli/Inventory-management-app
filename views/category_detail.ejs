@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%- include('header') -%>
+    <main>
+        <div id="category-detail-container">
+            <div id="category-title">
+                <p ><%= category_detail.name %></p>
+                <hr>
+            </div>  
+            
+            <div id="items-container">
+                <% if (allItemsInThisCategory.length) { %>
+
+                    <% allItemsInThisCategory.forEach(function(item) { %>
+                    <div class="itemDiv">
+                        <img class="categoryItemsImg" src="<%= item.mainImageUrl %>" alt="Product-image">
+                        <a class="categoryitemName" href="<%= item.url %>"><%= item.name %></a>
+                        <p class="categoryitemPrice"> <%= item.price %> </p>
+                    </div>
+                        
+                    <% }); %>
+
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+  </body>
+</html>
+
