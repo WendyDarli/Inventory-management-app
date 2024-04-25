@@ -1,9 +1,10 @@
 const asyncHandler = require("express-async-handler");
-const categories = require("../models/categories");
+const Category = require("../models/categories");
+const Item = require("../models/items");
 
 // Display list of all categorys.
 exports.category_list = asyncHandler(async (req, res, next) => {
-    const allCategories = await categories.find().sort({name: 1}).exec();
+    const allCategories = await Category.find().sort({name: 1}).exec();
 
     res.render("category_list", {
       title: "Category List",
@@ -13,7 +14,23 @@ exports.category_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific category.
 exports.category_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: category detail: ${req.params.id}`);
+  const [category_detail, allItemsInThisCategory] = await Promise.all([
+    Category.findById(req.params.id).exec(),
+    Item.find({category: req.params.id}).exec(),
+  ]);
+
+  if(category_detail === null) {
+    const err = new error("Category bot found.");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("category_detail", {
+    title: "category Detail",
+    category_detail: category_detail,
+    allItemsInThisCategory: allItemsInThisCategory,
+  });
+
 });
 
 // Display category create form on GET.
