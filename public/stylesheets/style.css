@@ -301,3 +301,19 @@ a {
   transition: 0.3s ease 0s;
 }
 
+/* COLORS DETAIL PAGE */
+
+#color{
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+}
+#colorp{
+  width: 50px;
+  height: 50px;
+}
+
+#colorname{
+  padding: 10px;
+  font-size: 20px;
+}
