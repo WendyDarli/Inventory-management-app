@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%- include('header') -%>
+    <main>
+      <div id="color">
+        <p style="background-color: <%= colorDetail.colorCode  %>" id="colorp"> &nbsp; </p>
+        <p id="colorname"> <%= colorDetail.itemColor %> </p>
+      </div>
+    </main>
+
+  </body>
+</html>
