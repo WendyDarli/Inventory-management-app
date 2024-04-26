@@ -45,8 +45,6 @@ exports.item_detail = asyncHandler(async (req, res, next) => {
     .populate("description")
     .populate("category")
     .exec(),
-
-
   ]);
 
   res.render("item_detail", {

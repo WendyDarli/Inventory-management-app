@@ -20,7 +20,7 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
   ]);
 
   if(category_detail === null) {
-    const err = new error("Category bot found.");
+    const err = new Error("Category bot found.");
     err.status = 404;
     return next(err);
   }
