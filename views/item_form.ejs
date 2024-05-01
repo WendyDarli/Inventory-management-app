@@ -11,7 +11,7 @@
 
         <h2>Create Item</h2>
 
-        <form method='POST'>
+        <form method='POST' enctype="multipart/form-data">
 
             <div class='form-group'>
 
@@ -24,34 +24,24 @@
               <label for='stock'>In Stock: </label><br>
               <input id='stock' class='form-control' type='text' placeholder='stock of item' name='stock' value='<%= item?.stock || "" %>'  required /><br>
 
-              <% if (colors.length) { %>  
-                <p> Avaliable Colors</p>             
-                  <% colors.forEach(function(color) { %>
-
-                    <label for="color">
-                      <input type="checkbox" id="title_1" name="color" value="<%= color.itemColor %>" />  <%= color.itemColor %>
-                    </label>
-                    <!-- add image input for each color -->
-
-                  <% }); %>   
-              <% } %>
-
               <br>
               <label for='description'>Product Description:</label><br>
               <textarea id='product-description' class='form-control' rows="4" cols="50" placeholder='Description for Item' name='description' value='<%= item?.description || "" %>'  required></textarea>
   
               <% if (category.length) { %> 
-                <p>Categories</p><br>          
+                <p>Category</p><br>          
                 <% category.forEach(function(categoryy) { %>
                   
                   <label for="category">
-                    <input type="checkbox" id="title_1" name="category" value="<%= categoryy.name %>" />  <%= categoryy.name %>
+                    <input type="checkbox" id="title_1" name="category" value="<%= categoryy._id %>" />  <%= categoryy.name %>
                   </label>
 
                 <% }); %>   
               <% } %>
 
-              <!-- add main image input -->
+              <br>
+              <label for="mainImage">Main Product Image</label> <br>
+              <input type="file" name="mainImageUrl" />
               
               <br>   
               <button type="submit">Submit</button>
