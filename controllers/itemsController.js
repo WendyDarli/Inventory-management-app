@@ -51,6 +51,12 @@ exports.item_detail = asyncHandler(async (req, res, next) => {
     .exec(),
   ]);
 
+  if (Item === null) {
+    const err = new Error('Item not found');
+    err.status = 404;
+    return next(err);
+  }
+
   res.render("item_detail", {
     title: itemDetail.name,
     itemDetail: itemDetail,
