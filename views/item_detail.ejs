@@ -10,7 +10,11 @@
     <main id="itemDetailContainer">
 
         <div>
-            <img id="itemImg" src="<%= itemDetail.mainImageUrl %>">
+          <% if (itemDetail.mainImageUrl.startsWith('up')) { %>
+              <img class="itemImg" src="<%= '/' + itemDetail.mainImageUrl %>">
+          <% } else { %>
+              <img class="itemImg" src="<%= itemDetail.mainImageUrl %>">
+          <% } %>
         </div>
 
         <div id="details">
@@ -18,21 +22,7 @@
             <p id="itemPrice"> $<%= itemDetail.price %> </p>  
             <p id="itemStock"> In Stock: <%= itemDetail.avaliability %> </p>
             
-            <div  id="avaliableColors">
-                <p>Available Colors</p> 
-                <hr class="itemhr">
-                <br>
-                <div id="colorimgDiv">
-                    <% itemDetail.colors.forEach(color => { %>
-                    
-
-                            <img id="colorsImg" src="<%= color.swatchImageUrl %>"> 
-                    
-                    <% }) %>
-                </div>
-            </div>
-            
-            <p>Description</p>
+            <p id="itemDescription">Description</p>
             <hr>
             <p><%= itemDetail.description %></p>
             <p id="ct">Category: <a href="/category/<%= itemDetail.category[0]._id %>"><%= itemDetail.category[0].name %></a></p>

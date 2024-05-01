@@ -19,10 +19,17 @@
 
                     <% allItemsInThisCategory.forEach(function(item) { %>
                     <div class="itemDiv">
-                        <img class="categoryItemsImg" src="<%= item.mainImageUrl %>" alt="Product-image">
+
+                      <% if (item.mainImageUrl.startsWith('up')) { %>
+                        <img class="categoryItemsImg" src="<%= '/' + item.mainImageUrl %>">
+                      <% } else { %>
+                        <img class="categoryItemsImg" src="<%= item.mainImageUrl %>">
+                      <% } %>
+
                         <a class="categoryitemName" href="<%= item.url %>"><%= item.name %></a>
                         <p class="categoryitemPrice"> <%= item.price %> </p>
-                    </div>
+                    
+                      </div>
                         
                     <% }); %>
 
