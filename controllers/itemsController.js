@@ -1,9 +1,11 @@
+const upload = require("../multerConfig");
+
 const Item = require("../models/items");
 const Colors = require("../models/colors");
 const Category = require("../models/categories");
+
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
-
 
 exports.index = asyncHandler(async (req, res, next) => {
     const [
@@ -63,54 +65,57 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
     Colors.find().sort({itemColor : 1}).exec(),
   ]);
 
-  // const item = new Item();
+  const item = new Item();
 
+  const errors = validationResult(req);
   res.render("item_form", {
     title: "Create Item",
-    categories : allCategories,
+    category : allCategories,
     colors: allColors,
-    // item: item,
+    item: item,
+    errors: errors.array(),
 
-  })
+  });
 });
 
 // Handle item create on POST.
-exports.item_create_post = [(req, res, next) => {
-  if (!Array.isArray(req.body.colors)) {
-    req.body.colors = 
-      typeof req.body.colors === "undefined" ? [] : [req.body.colors];
-  }
-  next();
-},
+exports.item_create_post = [
+  // Convert category string to array of ObjectIds
+  (req, res, next) => {
+    if (!Array.isArray(req.body.category)) {
+      req.body.category = [req.body.category];
+    }
+    next();
+  },
+
+  upload.single("mainImageUrl"),
 
 //validate and sanitize fields
   body("name", "Name must not be empty.")
     .trim()
-    .isLength({ min: 1})
-    .isAlpha().withMessage("name must be alphabetic")
+    .isLength({ min: 1 })
+    .isAlpha().withMessage("Name must be alphabetic")
     .escape(),
   body("price", "Price must not be empty.")
     .trim()
-    .isLength({ min: 1})
-    .isNumeric().withMessage("Price must a number")
+    .isLength({ min: 1 })
+    .isNumeric().withMessage("Price must be a number")
     .escape(),
   body("stock", "Stock quantity must be a number.")
     .trim()
-    .isNumeric().withMessage("Stock must a number")
+    .isNumeric().withMessage("Stock must be a number")
     .escape(),
-  body("colors.*").escape(),
   body("description", "Description must not be empty.")
-  .trim()
-  .isLength({min: 1})
-  .escape(),
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
   body("category.*").escape(),
-
+  body("mainImageUrl"),
 
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Item object with escaped and trimmed data.
     const item = new Item({
       name: req.body.name,
       price: req.body.price,
@@ -118,32 +123,26 @@ exports.item_create_post = [(req, res, next) => {
       colors: req.body.colors,
       description: req.body.description,
       category: req.body.category,
+      mainImageUrl: req.file.path,
     });
 
     if (!errors.isEmpty()) {
-      const [allColors, allCategories] = await Promise.all([
-        Colors.find().sort({ itemColor: 1 }).exec(),
-        Category.find().sort({ name: 1}).exec(),
-      ]);
+      // If there are errors, retrieve all categories and render the form again
+      const allCategories = await Category.find().sort({ name: 1 }).exec();
 
-      for (const color of allColors) {
-        if(item.colors.includes(color._id)) {
-          color.checked = "true";
-        }
-        for (const category of allCategories) {
-          if(item.category.includes(category._id)) {
-            category.checked = "true";
-          }
+      for (const category of allCategories) {
+        if (item.category.includes(category._id)) {
+          category.checked = "true";
         }
       }
 
       res.render("item_form", {
         title: "Create Item",
-        colors: allColors,
         category: allCategories,
         item: item,
         errors: errors.array(),
       });
+      
     } else {
       await item.save();
       res.redirect(item.url);
