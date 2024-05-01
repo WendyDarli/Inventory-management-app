@@ -41,15 +41,14 @@ exports.item_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific item.
 exports.item_detail = asyncHandler(async (req, res, next) => {
-  const [ itemDetail ] = await Promise.all([
+  const itemDetail = await
     Item.findById(req.params.id)
     .populate("price")
     .populate("colors")
     .populate("stock")
     .populate("description")
     .populate("category")
-    .exec(),
-  ]);
+    .exec();
 
   if (Item === null) {
     const err = new Error('Item not found');
@@ -66,10 +65,7 @@ exports.item_detail = asyncHandler(async (req, res, next) => {
 
 // Display item create form on GET.
 exports.item_create_get = asyncHandler(async (req, res, next) => {
-  const [allCategories, allColors] = await Promise.all([
-    Category.find().sort({ name: 1 }).exec(),
-    Colors.find().sort({itemColor : 1}).exec(),
-  ]);
+  const allCategories = await Category.find().sort({ name: 1 }).exec();
 
   const item = new Item();
 
@@ -77,7 +73,7 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
   res.render("item_form", {
     title: "Create Item",
     category : allCategories,
-    colors: allColors,
+    
     item: item,
     errors: errors.array(),
 
@@ -168,11 +164,102 @@ exports.item_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display item update form on GET.
 exports.item_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: item update GET");
+  const [item, allCategories ] = await Promise.all([
+    Item.findById(req.params.id).populate("category").exec(),
+    Category.find().sort({ name: 1 }).exec(),
+  ]);
+  
+  if (item === null) {
+    const err = new Error("Item not found.");
+    err.status = 404;
+    return next(err);
+  }
+
+  allCategories.forEach((category) => {
+    if (item.category.includes(category._id)) category.checked = true;
+  });
+
+  const errors = validationResult(req);
+
+  res.render("item_form", {
+    title: "Update Item",
+    category: allCategories,
+    item: item,
+    errors: errors.array(),
+  });
 });
 
+
 // Handle item update on POST.
-exports.item_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: item update POST");
-});
+exports.item_update_post = [
+  // Convert the genre to an array.
+  (req, res, next) => {
+    if (!Array.isArray(req.body.genre)) {
+      req.body.genre =
+        typeof req.body.genre === "undefined" ? [] : [req.body.genre];
+    }
+    next();
+  },
+
+  upload.single("mainImageUrl"),
+
+  body("name", "Name must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("price", "Price must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .isNumeric().withMessage("Price must be a number")
+    .escape(),
+  body("stock", "Stock quantity must be a number.")
+    .trim()
+    .isNumeric().withMessage("Stock must be a number")
+    .escape(),
+  body("description", "Description must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("category.*").escape(),
+  body("mainImageUrl"),
+
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+    
+    const item = new Item({
+      name: req.body.name,
+      price: req.body.price,
+      stock: req.body.stock,
+      colors: req.body.colors,
+      description: req.body.description,
+      category: typeof req.body.category === "undefined" ? [] : req.body.category,
+      mainImageUrl: req.file.path,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      // If there are errors, retrieve all categories and render the form again
+      const allCategories = await Category.find().sort({ name: 1 }).exec();
+      
+      for (const category of allCategories) {
+        if (item.category.includes(category._id)) {
+          category.checked = "true";
+        }
+      }
+  
+      res.render("item_form", {
+        title: "Create Item",
+        category: allCategories,
+        item: item,
+        errors: errors.array(),
+      });
+      
+    } else {
+      const updatedItem = await Item.findByIdAndUpdate(req.params.id, item, {}); 
+      res.redirect(item.url);
+    }
+  }),
+];
+
    
