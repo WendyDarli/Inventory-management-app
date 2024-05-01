@@ -9,7 +9,7 @@
     <%- include('header') -%>
     <main>
 
-        <h2>Create Item</h2>
+        <h2><%= title %></h2>
 
         <form method='POST' enctype="multipart/form-data">
 
@@ -26,19 +26,17 @@
 
               <br>
               <label for='description'>Product Description:</label><br>
-              <textarea id='product-description' class='form-control' rows="4" cols="50" placeholder='Description for Item' name='description' value='<%= item?.description || "" %>'  required></textarea>
+              <textarea id='product-description' class='form-control' rows="4" cols="50" placeholder='Description for Item' name='description'  required><%= item.description || "" %></textarea>
   
               <% if (category.length) { %> 
                 <p>Category</p><br>          
-                <% category.forEach(function(categoryy) { %>
-                  
+                <% category.forEach(function(category) { %>
                   <label for="category">
-                    <input type="checkbox" id="title_1" name="category" value="<%= categoryy._id %>" />  <%= categoryy.name %>
+                    <input type="checkbox" id="title_1" name="category" value="<%= category._id %>"/>  <%= category.name %>
                   </label>
-
                 <% }); %>   
               <% } %>
-
+              
               <br>
               <label for="mainImage">Main Product Image</label> <br>
               <input type="file" name="mainImageUrl" />
