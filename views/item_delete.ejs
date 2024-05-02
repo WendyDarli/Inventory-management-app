@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%- include('header') -%>
+    <main>
+
+        <h2><%= title %> </h2>
+
+        <p>Do you really want to delete this item?</p> 
+        <p><%= item.name %></p>
+        
+        <div>
+            <% if (item.mainImageUrl.startsWith('up')) { %>
+                <img  src="<%= '/' + item.mainImageUrl %>">
+            <% } else { %>
+                <img  src="<%= item.mainImageUrl %>">
+            <% } %>
+          </div>
+
+        <form method='POST'>
+            <label for="itemid"></label>
+                <input type='hidden' name='itemid' value= "<%= item._id %>"/>
+          
+            <button type='submit' >Delete </button>
+        </form>
+       
+        
+    </main>
+</html>
