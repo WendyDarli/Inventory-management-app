@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%- include('header') -%>
+    <main>
+
+        <h2><%= title %> </h2>
+
+        <p>Do you really want to delete this category?</p> 
+        <p><%= category.name %></p>
+        
+
+        <form method='POST'>
+            <label for="categoryid"></label>
+                <input type='hidden' name='categoryid' value= "<%= category._id %>"/>
+          
+            <button type='submit' >Delete </button>
+        </form>
+       
+        
+    </main>
+</html> 
