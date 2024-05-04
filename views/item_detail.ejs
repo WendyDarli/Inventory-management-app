@@ -20,12 +20,25 @@
         <div id="details">
             <p id="itemName"> <%= itemDetail.name %> </p>
             <p id="itemPrice"> $<%= itemDetail.price %> </p>  
-            <p id="itemStock"> In Stock: <%= itemDetail.avaliability %> </p>
+            <% if (itemDetail.avaliability === 'Out of Stock') { %>
+              <p>In Stock: </p>        
+              <p id="itemStock" style="color: red;"> <%= itemDetail.avaliability %></p>
+            <% } else { %>
+              <p id="itemStock">In Stock: <%= itemDetail.avaliability %></p>
+            <% } %>
             
             <p id="itemDescription">Description</p>
             <hr>
             <p><%= itemDetail.description %></p>
-            <p id="ct">Category: <a href="/category/<%= itemDetail.category[0]._id %>"><%= itemDetail.category[0].name %></a></p>
+            <p id="ct">
+              Category:
+              <% if (itemDetail.category && itemDetail.category.length > 0 && itemDetail.category[0]._id) { %>
+                <a href="/category/<%= itemDetail.category[0]._id %>"><%= itemDetail.category[0].name %></a>
+              <% } else { %>
+                <a style="color: red;">No category selected.</a>
+              <% } %>
+            </p>
+            
 
             
             <div id="deleteEditLinks">
