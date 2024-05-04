@@ -163,35 +163,36 @@ a {
   font-size: 14px;
 }
 
+.itemImg{
+  width:100%;
+  display: block;
+  height:600px;
+  object-fit:cover;
+  object-position:50% 50%;
+}
+
 #details{
   margin: 0px 50px;
 }
 #itemName{
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
+}
+
+#itemStock{
+  margin-bottom: 50px;
 }
 
 #itemPrice{
   color: #FF8E75;
+  font-size: 22px;
 }
 
-#avaliableColors{
-
-  border-radius: 10px;
+#itemDescription{
+  font-size: 16px;
+  font-weight: 500;
 }
 
-
-#colorimgDiv{
-  display: flex;
-
-}
-
-#colorsImg{
-  height: 60px;
-  padding: 15px;
-  border-radius: 20px;
-
-}
 #ct{
   margin: 50px 0px;
 }
