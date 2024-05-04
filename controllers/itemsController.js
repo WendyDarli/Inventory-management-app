@@ -73,7 +73,6 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
   res.render("item_form", {
     title: "Create Item",
     category : allCategories,
-    
     item: item,
     errors: errors.array(),
 
@@ -202,11 +201,11 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
 
 // Handle item update on POST.
 exports.item_update_post = [
-  // Convert the genre to an array.
+  // Convert the category to an array.
   (req, res, next) => {
-    if (!Array.isArray(req.body.genre)) {
-      req.body.genre =
-        typeof req.body.genre === "undefined" ? [] : [req.body.genre];
+    if (!Array.isArray(req.body.category)) {
+      req.body.category =
+        typeof req.body.category === "undefined" ? [] : [req.body.category];
     }
     next();
   },
