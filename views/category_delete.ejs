@@ -11,16 +11,34 @@
 
         <h2><%= title %> </h2>
 
-        <p>Do you really want to delete this category?</p> 
-        <p><%= category.name %></p>
+        <% if (items.length > 0) { %>
+          <p>Delete the following items before attempting to delete this category:</p> 
+          <div  id="items-container">
+            <% items.forEach(function(item) { %>
+              <div class="itemDiv">
+                <% if (item.mainImageUrl.startsWith('up')) { %>
+                  <img class="categoryItemsImg" src="<%= '/' + item.mainImageUrl %>">
+                <% } else { %>
+                  <img class="categoryItemsImg" src="<%= item.mainImageUrl %>">
+                <% } %>
+                <a class="categoryitemName" href="<%= item.url %>"><%= item.name %></a>
+                <p class="categoryitemPrice"><%= item.price %></p>
+              </div>
+            <% }); %>
+          </div>
+       
+        <% } else { %>     
         
-
-        <form method='POST'>
-            <label for="categoryid"></label>
-                <input type='hidden' name='categoryid' value= "<%= category._id %>"/>
+          <p>Do you really want to delete this category?</p> 
+          <p><%= category.name %></p>
           
-            <button type='submit' >Delete </button>
-        </form>
+          <form method='POST'>
+            <label for="categoryid"></label>
+            <input type='hidden' name='categoryid' value="<%= category._id %>"/>
+          
+            <button type='submit'>Delete</button>
+          </form>
+        <% } %>
        
         
     </main>
