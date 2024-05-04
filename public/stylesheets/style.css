@@ -287,3 +287,24 @@ a {
   padding: 10px;
   font-size: 20px;
 }
+
+#ct-links-div{
+  margin: 50px 40%;
+}
+
+.ctlinks{
+  
+  padding: 20px;
+  background-color: #3C3C3C;
+  color: #FFCACD;
+  transition: 0.3s ease 0s;
+  text-decoration: none;
+  min-width: 200px;
+  margin: 10px;
+
+}
+
+.ctlinks:hover{
+  background-color: #FFCACD;
+  color: #3C3C3C;
+}
