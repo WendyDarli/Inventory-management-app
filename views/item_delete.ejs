@@ -9,26 +9,29 @@
     <%- include('header') -%>
     <main>
 
-        <h2><%= title %> </h2>
+      <div style="text-align: center;">
 
-        <p>Do you really want to delete this item?</p> 
-        <p><%= item.name %></p>
-        
-        <div>
-            <% if (item.mainImageUrl.startsWith('up')) { %>
-                <img  src="<%= '/' + item.mainImageUrl %>">
-            <% } else { %>
-                <img  src="<%= item.mainImageUrl %>">
-            <% } %>
+        <h2><%= title %> </h2>
+        <p style="margin-bottom: 40px;">Do you really want to delete this item?</p> 
+        <div style="text-align: center;" id="item-delete-div">
+
+          <p ><%= item.name %></p>
+          <div style="margin-bottom: 40px;" id="delete-item-img-div">
+              <% if (item.mainImageUrl.startsWith('up')) { %>
+                  <img id="delete-item-img" src="<%= '/' + item.mainImageUrl %>">
+              <% } else { %>
+                  <img id="delete-item-img" src="<%= item.mainImageUrl %>">
+              <% } %>
           </div>
+        </div>
 
         <form method='POST'>
             <label for="itemid"></label>
                 <input type='hidden' name='itemid' value= "<%= item._id %>"/>
           
-            <button type='submit' >Delete </button>
+            <button id="deletebtn" type='submit' >Delete </button>
         </form>
-       
+      </div>
         
     </main>
 </html>
