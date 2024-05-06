@@ -95,7 +95,6 @@ exports.item_create_post = [
   body("name", "Name must not be empty.")
     .trim()
     .isLength({ min: 1 })
-    .isAlpha().withMessage("Name must be alphabetic")
     .escape(),
   body("price", "Price must not be empty.")
     .trim()
