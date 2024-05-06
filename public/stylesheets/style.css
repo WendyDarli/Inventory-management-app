@@ -271,6 +271,12 @@ a {
   transition: 0.3s ease 0s;
 }
 
+/* CATEGORY LIST  */
+
+#create-ct-div{
+  margin: 100px 40%;
+}
+
 /* COLORS DETAIL PAGE */
 
 #color{
@@ -292,7 +298,7 @@ a {
   margin: 50px 40%;
 }
 
-.ctlinks, #create-category-btn, #create-item-btn{
+.ctlinks, #create-category-btn, #create-item-btn, #deletebtn{
   
   padding: 20px;
   background-color: #3C3C3C;
@@ -304,14 +310,20 @@ a {
 
 }
 
-.ctlinks:hover, #create-category-btn:hover, #create-item-btn:hover {
+/* ITEM DELETE PAGE STYLE */
+.ctlinks:hover, #create-category-btn:hover, #create-item-btn:hover, #deletebtn:hover {
   background-color: #FFCACD;
   color: #3C3C3C;
 }
 
-#create-ct-div{
-  margin: 100px 40%;
-}
 #create-item-div{
   margin: 50px 45%;
+}
+
+#delete-item-img{
+  max-width: 300px;
+}
+
+#item-delete-div{
+  text-align: left;
 }
