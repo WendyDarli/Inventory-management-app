@@ -288,11 +288,11 @@ a {
   font-size: 20px;
 }
 
-#ct-links-div{
+#ct-links-div, #create-ct-div, #create-item-div{
   margin: 50px 40%;
 }
 
-.ctlinks{
+.ctlinks, #create-category-btn, #create-item-btn{
   
   padding: 20px;
   background-color: #3C3C3C;
@@ -304,7 +304,14 @@ a {
 
 }
 
-.ctlinks:hover{
+.ctlinks:hover, #create-category-btn:hover, #create-item-btn:hover {
   background-color: #FFCACD;
   color: #3C3C3C;
+}
+
+#create-ct-div{
+  margin: 100px 40%;
+}
+#create-item-div{
+  margin: 50px 45%;
 }
