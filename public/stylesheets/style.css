@@ -298,7 +298,7 @@ a {
   margin: 50px 40%;
 }
 
-.ctlinks, #create-category-btn, #create-item-btn, #deletebtn{
+.ctlinks, #create-category-btn, #create-item-btn, #deletebtn, #create-btn{
   
   padding: 20px;
   background-color: #3C3C3C;
@@ -311,7 +311,7 @@ a {
 }
 
 /* ITEM DELETE PAGE STYLE */
-.ctlinks:hover, #create-category-btn:hover, #create-item-btn:hover, #deletebtn:hover {
+.ctlinks:hover, #create-category-btn:hover, #create-item-btn:hover, #deletebtn:hover, #create-btn:hover {
   background-color: #FFCACD;
   color: #3C3C3C;
 }
@@ -326,4 +326,26 @@ a {
 
 #item-delete-div{
   text-align: left;
+}
+
+/* CREATE ITEM FORM STYLE */
+
+#center-form{
+  display: flex;
+
+  justify-content: center;
+}
+
+.form-control{
+  height: 30px;
+  width: 400px;
+  margin-bottom: 10px;
+
+}
+
+#title_1{
+  margin-bottom: 20px;
+}
+#create-btn{
+  margin: 30px 30px 30px 120px;
 }
