@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Colors = require("../models/colors")
-const Item = require("../models/items")
+const Item = require("../models/items");
+const { body, validationResult } = require("express-validator");
 
 // Display list of all colors.
 exports.colors_list = asyncHandler(async (req, res, next) => {
@@ -31,13 +32,47 @@ exports.colors_detail = asyncHandler(async (req, res, next) => {
  
 // Display colorscreate form on GET.
 exports.colors_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: colorscreate GET");
+  const color = new Colors();
+  const errors = validationResult(req);
+
+  res.render("colors_form", {
+    title: "Create Color",
+    color: color,
+    errors: errors.array(),
+  });
 });
 
 // Handle colorscreate on POST.
-exports.colors_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: colorscreate POST");
-});
+exports.colors_create_post = [
+  body('itemColor', 'Color must be not empty.').trim().isLength({min : 3}).escape(),
+  body('colorCode', "Color code must not be empty.").trim().isLength({min: 3}).escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const colors = new Colors({ 
+      itemColor: req.body.itemColor, 
+      colorCode: req.body.colorCode,
+    });
+
+    if(!errors.isEmpty()) {
+      res.render("colors_form", {
+        title: "Create colors",
+        color: colors,
+        errors: errors.array(),
+      });
+      return;
+
+    } else {
+      const colorExist = await Colors.findOne({ itemColor: req.body.itemColor }).exec();
+      if(colorExist) {
+        res.redirect(colorExist.url);
+      
+      } else {
+        await colors.save();
+        res.redirect(colors.url);
+      }}
+    }),
+];
 
 // Display colorsdelete form on GET.
 exports.colors_delete_get = asyncHandler(async (req, res, next) => {
