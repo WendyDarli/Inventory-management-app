@@ -63,9 +63,9 @@ router.get("/color/:id/delete", colors_controller.colors_delete_get);
 
 router.post("/color/:id/delete", colors_controller.colors_delete_post);
 
-router.get("/color/:id/delete", colors_controller.colors_delete_get);
+router.get("/color/:id/update", colors_controller.colors_update_get);
 
-router.post("/color/:id/delete", colors_controller.colors_delete_post);
+router.post("/color/:id/update", colors_controller.colors_update_post);
 
 router.get("/color/:id", colors_controller.colors_detail);
 
