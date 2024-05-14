@@ -76,13 +76,26 @@ exports.colors_create_post = [
 
 // Display colorsdelete form on GET.
 exports.colors_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: colorsdelete GET");
+  const colors = await Colors.findById(req.params.id).exec();
+   
+  if(colors === null) {
+    res.redirect("/color");
+  };
+
+  res.render("colors_delete",{
+    title: "Delete Color",
+    color: colors,
+  });
 });
 
 // Handle colorsdelete on POST.
 exports.colors_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: colorsdelete POST");
+  const colors = await Colors.findById(req.params.id).exec();
+
+  await Colors.findByIdAndDelete(req.body.colorid);
+  res.redirect("/color");
 });
+
 
 // Display colorsupdate form on GET.
 exports.colors_update_get = asyncHandler(async (req, res, next) => {
