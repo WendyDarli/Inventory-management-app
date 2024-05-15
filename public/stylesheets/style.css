@@ -298,7 +298,7 @@ a {
   margin: 50px 40%;
 }
 
-.ctlinks, #create-category-btn, #create-item-btn, #deletebtn, #create-btn{
+.button-style{ 
   
   padding: 20px;
   background-color: #3C3C3C;
@@ -311,7 +311,7 @@ a {
 }
 
 /* ITEM DELETE PAGE STYLE */
-.ctlinks:hover, #create-category-btn:hover, #create-item-btn:hover, #deletebtn:hover, #create-btn:hover {
+.button-style:hover{
   background-color: #FFCACD;
   color: #3C3C3C;
 }

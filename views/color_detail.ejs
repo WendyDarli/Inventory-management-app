@@ -8,10 +8,16 @@
 
     <%- include('header') -%>
     <main>
-      <div id="color">
-        <p style="background-color: <%= colorDetail.colorCode  %>" id="colorp"> &nbsp; </p>
+      <div style="display: flex; justify-content: center;" id="color">
+        <p <% /* eslint-disable css-propertyvalueexpected */ %> style="background-color: <%= colorDetail.colorCode %>;" id="colorp"> &nbsp; </p>
         <p id="colorname"> <%= colorDetail.itemColor %> </p>
       </div>
+
+      <div style="display: flex; justify-content: center;" >
+        <a class="button-style" href="/color/<%= colorDetail._id %>/update">Edit color</a>
+        <a class="button-style" href="/color/<%= colorDetail._id %>/delete">Delete this color</a>
+      </div>
+
     </main>
 
   </body>
