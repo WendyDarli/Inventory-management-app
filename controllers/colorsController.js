@@ -3,7 +3,7 @@ const Colors = require("../models/colors")
 const Item = require("../models/items");
 const { body, validationResult } = require("express-validator");
 
-// Display list of all colors.
+
 exports.colors_list = asyncHandler(async (req, res, next) => {
   const allColors = await Colors.find().sort({ itemColor: 1 }).exec();
 
@@ -13,9 +13,8 @@ exports.colors_list = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Display detail page for a specific colors
-exports.colors_detail = asyncHandler(async (req, res, next) => {
 
+exports.colors_detail = asyncHandler(async (req, res, next) => {
   const colorDetail = await Colors.findById(req.params.id).exec()
 
   if (!colorDetail) {
@@ -29,8 +28,8 @@ exports.colors_detail = asyncHandler(async (req, res, next) => {
     colorDetail: colorDetail,
   });
 });
- 
-// Display colorscreate form on GET.
+
+
 exports.colors_create_get = asyncHandler(async (req, res, next) => {
   const color = new Colors();
   const errors = validationResult(req);
@@ -42,7 +41,7 @@ exports.colors_create_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Handle colorscreate on POST.
+
 exports.colors_create_post = [
   body('itemColor', 'Color must be not empty.').trim().isLength({min : 3}).escape(),
   body('colorCode', "Color code must not be empty.").trim().isLength({min: 3}).escape(),
@@ -74,7 +73,7 @@ exports.colors_create_post = [
     }),
 ];
 
-// Display colorsdelete form on GET.
+
 exports.colors_delete_get = asyncHandler(async (req, res, next) => {
   const colors = await Colors.findById(req.params.id).exec();
    
@@ -88,7 +87,7 @@ exports.colors_delete_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Handle colorsdelete on POST.
+
 exports.colors_delete_post = asyncHandler(async (req, res, next) => {
   const colors = await Colors.findById(req.params.id).exec();
 
@@ -97,13 +96,49 @@ exports.colors_delete_post = asyncHandler(async (req, res, next) => {
 });
 
 
-// Display colorsupdate form on GET.
 exports.colors_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: colorsupdate GET");
+  const colors = await Colors.findById(req.params.id).exec();
+
+  if(colors === null) {
+    const err = new Error("Color not found.");
+    err.status = 404;
+    return next(err);
+  }
+
+  const errors = validationResult(req);
+
+  res.render("colors_form", {
+    title: "Update Color",
+    color: colors,
+    errors: errors.array(),
+  });
 });
 
-// Handle colorsupdate on POST.
+
 exports.colors_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: colorsupdate POST");
+  body("itemColor", "Item Color must not be empty").trim().isLength({min: 1}).escape();
+  body("colorCode", "Color code must not be empty").trim().isLength({min:1}).escape();
+
+  const errors = validationResult(req);
+
+  const colors = new Colors({
+    itemColor: req.body.itemColor,
+    colorCode: req.body.colorCode,
+    _id: req.params.id,
+  });
+
+  if(!errors.isEmpty()) {
+    const colors = await Colors.find().sort({name: 1}).exec();
+
+    res.render("colors_form", {
+      title: "Update Color",
+      color: colors,
+      errors: errors.array(),
+    });
+
+  } else {
+    const updatedColor = await Colors.findByIdAndUpdate(req.params.id, colors, {});
+    res.redirect(colors.url);
+  }
 });
    
