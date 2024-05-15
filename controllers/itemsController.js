@@ -7,6 +7,7 @@ const Category = require("../models/categories");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+// Counts record for index page.
 exports.index = asyncHandler(async (req, res, next) => {
     const [
       numItems,
@@ -91,7 +92,6 @@ exports.item_create_post = [
 
   upload.single("mainImageUrl"),
 
-//validate and sanitize fields
   body("name", "Name must not be empty.")
     .trim()
     .isLength({ min: 1 })
@@ -113,7 +113,7 @@ exports.item_create_post = [
   body("mainImageUrl"),
 
   asyncHandler(async (req, res, next) => {
-    // Extract the validation errors from a request.
+
     const errors = validationResult(req);
 
     const item = new Item({
@@ -127,7 +127,6 @@ exports.item_create_post = [
     });
 
     if (!errors.isEmpty()) {
-      // If there are errors, retrieve all categories and render the form again
       const allCategories = await Category.find().sort({ name: 1 }).exec();
 
       for (const category of allCategories) {
@@ -200,7 +199,6 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
 
 // Handle item update on POST.
 exports.item_update_post = [
-  // Convert the category to an array.
   (req, res, next) => {
     if (!Array.isArray(req.body.category)) {
       req.body.category =
@@ -247,7 +245,6 @@ exports.item_update_post = [
     });
 
     if (!errors.isEmpty()) {
-      // If there are errors, retrieve all categories and render the form again
       const allCategories = await Category.find().sort({ name: 1 }).exec();
       
       for (const category of allCategories) {

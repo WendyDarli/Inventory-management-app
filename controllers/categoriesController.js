@@ -4,7 +4,7 @@ const Item = require("../models/items");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
-// Display list of all categorys.
+
 exports.category_list = asyncHandler(async (req, res, next) => {
     const allCategories = await Category.find().sort({name: 1}).exec();
 
@@ -14,7 +14,7 @@ exports.category_list = asyncHandler(async (req, res, next) => {
     });
 });
 
-// Display detail page for a specific category.
+
 exports.category_detail = asyncHandler(async (req, res, next) => {
   const [category_detail, allItemsInThisCategory] = await Promise.all([
     Category.findById(req.params.id).exec(),
@@ -32,10 +32,9 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
     category_detail: category_detail,
     allItemsInThisCategory: allItemsInThisCategory,
   });
-
 });
 
-// Display category create form on GET.
+
 exports.category_create_get = asyncHandler(async (req, res, next) => {
   const category = new Category();
   const errors = validationResult(req);
@@ -46,12 +45,9 @@ exports.category_create_get = asyncHandler(async (req, res, next) => {
     errors: errors.array(),});    
 });
 
-// Handle category create on POST.
+
 exports.category_create_post = [
-  body('name', 'Category must be more than 3 characters')
-  .trim()
-  .isLength({min : 3})
-  .escape(),
+  body('name', 'Category must be more than 3 characters').trim().isLength({min : 3}).escape(),
 
 asyncHandler(async (req, res, next) => {
   const errors = validationResult(req);
@@ -65,7 +61,6 @@ asyncHandler(async (req, res, next) => {
     });
     return;
   } else {
-
     const categoryExists = await Category.findOne({ name: req.body.name }).exec();
     if(categoryExists) {
       res.redirect(categoryExists.url);
@@ -78,7 +73,7 @@ asyncHandler(async (req, res, next) => {
   }),
 ];
 
-// Display category delete form on GET.
+
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
   const [ category, allItemsInThisCategory ] = await Promise.all([
     Category.findById(req.params.id).exec(),
@@ -94,10 +89,9 @@ exports.category_delete_get = asyncHandler(async (req, res, next) => {
     category: category,
     items: allItemsInThisCategory,
   });
-
 });
 
-// Handle category delete on POST.
+
 exports.category_delete_post = asyncHandler(async (req, res, next) => {
     const [category, allItemsInThisCategory] = await Promise.all([
       Category.findById(req.params.id).exec(),
@@ -115,9 +109,9 @@ exports.category_delete_post = asyncHandler(async (req, res, next) => {
       await Category.findByIdAndDelete(req.body.categoryid);
       res.redirect("/category");
     }
-  });
+});
 
-// Display category update form on GET.
+
 exports.category_update_get = asyncHandler(async (req, res, next) => {
   const category = await Category.findById(req.params.id).exec();
 
@@ -136,14 +130,10 @@ exports.category_update_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Handle category update on POST.
-exports.category_update_post = asyncHandler(async (req, res, next) => {
-  body("name", "Name must not be empty.")
-    .trim()
-    .isLength({ min: 1 })
-    .escape();
 
-  
+exports.category_update_post = asyncHandler(async (req, res, next) => {
+  body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape();
+
     const errors = validationResult(req);
 
     const category = new Category({
