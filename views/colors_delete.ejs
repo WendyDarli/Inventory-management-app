@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%- include('header') -%>
+    <main>
+        <h2 style="text-align: center;"><%= title %> </h2>
+    
+        <% if (color) { %>
+            <p style="text-align: center;">Do you really want to delete this color?</p> 
+            <p style="text-align: center;"><%= color.itemColor %></p>
+            
+            <form method='POST'>
+                <label for="colorid"></label>
+                <input type='hidden' name='colorid' value="<%= color._id %>"/>
+              
+                <button style="margin-left: 45%;" class="button-style" type='submit'>Delete</button>
+            </form>
+        <% } else { %>
+            <p>Color not found.</p>
+        <% } %>
+    </main>
+</html> 
